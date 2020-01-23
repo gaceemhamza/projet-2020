@@ -2,13 +2,14 @@
 include_once('connexion_bdd.php');
 
 
-if (isset($_POST['mdp']) && isset($_POST['email']) && isset($_POST['nom']) && isset($_POST['prenom']) && isset($_POST['role'])) {
+if (!empty($_POST['mdp']) && !empty($_POST['email']) && !empty($_POST['nom']) && !empty($_POST['prenom']) && !empty($_POST['role'])) {
 
     $mdp = $_POST['mdp'];
     $email = $_POST['email'];
     $nom = $_POST['nom'];
     $prenom = $_POST['prenom'];
     $role = $_POST['role'];
+
     // on teste si les deux mots de passe sont identique
     if ($mdp === $_POST['mdpConfirm']) {
         try {
