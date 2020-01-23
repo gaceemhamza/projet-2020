@@ -1,28 +1,53 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <style>
-        table, th, td {
-            border: 1px solid black;
-        }
-    </style>
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <!------ Include the above in your HEAD tag ---------->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/all.css">
 </head>
 <body>
 
-
 <?php
+
 include_once('connexion_bdd.php');
-$reponse = $bdd->query('SELECT mdp_user, mail_user, nom_user, prenon_user, profil  FROM utilisateur ');
 
-while ($donnees = $reponse->fetch())
-{
-    echo "<table><tr><th>nom_user</th><th>prenon_user</th><th>profil</th><th>mail_user</th><th>mdp_user</th></tr>";
+// la requete
+$sql = "SELECT * FROM `utilisateur` "; // de preference select *
+// attention if faut pas oublie d'executer la requete
+$resultat = $bdd->query($sql);
+
+?>
+
+<table class="table" style="width: 50%; margin: auto">
+    <thead>
+    <tr>
+        <th scope="col">#</th>
+        <th scope="col">Nom</th>
+        <th scope="col">Prénom</th>
+        <th scope="col">Profile</th>
+    </tr>
+    </thead>
+    <tbody>
+    <?php
+    while ($donnees = $resultat->fetch()){
+        echo "
+        <tr>
+        <th scope='row'> " .$donnees['id']." </th>
+        <td>" .$donnees['nom_user']."</td>
+        <td>".$donnees['profil']."</td>
+        <td>".$donnees['mail_user']."</td>
+    </tr>
+    ";
+    }
+    ?>
+    </tbody>
+</table>
+</body>
+</html>
 
 
-    echo "<tr><td>" .$donnees['nom_user']."</td><td>". $donnees['prenon_user']."</td><td>".$donnees['profil']."</td><td>".$donnees['mail_user']."</td><td>".$donnees['mdp_user']."</td></tr>";
-
-}
- echo "</table>";
 
 
 
